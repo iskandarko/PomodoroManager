@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+    <title>PomodoroManager</title>
+</head>
+<style>
+    body {
+        background-color: #f8f9fa!important;
+    }
+</style>
+<body>
+
+<!-- Navbar     -->
+    <header>
+        <nav class="navbar navbar-expand-md navbar-dark bg-dark">
+            <a class="navbar-brand" href="#"><span style="color: crimson;">Pomodoro</span>Manager</a>
+            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button> -->
+          
+            <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item">
+                    <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Settings</a>
+                    </li>
+                </ul>
+                <ul class="navbar-nav my-2 my-lg-0">
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Logged in as <em>Iskandarko</em></a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Sign Up</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="#">Log In</a>
+                    </li>
+                </ul>
+            </div> -->
+        </nav>
+    </header>
+
+    <main role="main">
+        <div class="album py-5 bg-light">
+    
+            <div class="container">
+
+                    <div class="row">
+                        
+                        <div class="col-12 d-flex justify-content-center text-center" id="timerSection">
+                            <div class="my-2 p-2 bg-white rounded shadow-sm" id="timerSection" style="height: 400px; width: 1100px;">
+                                <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-top: 100px;">
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="modes" id="pomodoroBtn" checked> Pomodoro
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="modes" id="shortBreakBtn"> Short Break
+                                    </label>
+                                    <label class="btn btn-secondary">
+                                        <input type="radio" name="modes" id="longBreakBtn"> Long Break
+                                    </label>
+                                </div>
+                            <h1 style="font-size: 5.0rem;"><span id="timer">25:00</span></h1>
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="actions" id="startBtn"> Start
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="actions" id="stopBtn" checked> Stop
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="actions" id="resetBtn"> Reset
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+          
+                <!-- <div class="row">
+
+                    <div class="col-md-6 d-flex justify-content-center" id="calendarSection">
+                        <div class="my-2 p-2 bg-white rounded shadow-sm" id="googleCalendar" style="height: 500px; width: 530px;">
+                            <img src="GoogleCalendar.png" class="img-fluid" alt="Responsive image">
+                        </div>
+                    </div>
+                    
+                    <div class="col-md-6 d-flex justify-content-center" id="toDoSection">
+                        <div class="my-2 p-2 bg-white rounded shadow-sm" id="toDoList" style="height: 500px; width: 530px;">
+                            <ul style="list-style: none; overflow-y:scroll; height: 430px;">
+                                <li style="color: grey; text-decoration: line-through;" > <input type="checkbox" checked > MDR: Потести BLOB</li>
+                                <li style="color: grey; text-decoration: line-through;" > <input type="checkbox" checked> Накидай вопросы для Наташи</li>
+                                <li style="color: grey;"> <input type="checkbox"> Завтрак</li>
+                                <li style="color: red;"> <input type="checkbox"> Coding</li>
+                                <li> <input type="checkbox"> MDR 
+                                    <ul>
+                                        <li><input type="checkbox"> Step1</li>
+                                        <li><input type="checkbox"> Step2</li>
+                                        <li><input type="checkbox"> Step3</li>
+                                    </ul>
+                                </li>
+                                <li> <input type="checkbox"> Something else</li>
+                                <li> <input type="checkbox"> Something else</li>
+                                <li> <input type="checkbox"> Something else</li>
+                                <li> <input type="checkbox"> Something else</li>
+                                <li> <input type="checkbox"> Something else</li>
+                                <li> <input type="checkbox"> Something else</li>
+                                <li> <input type="checkbox"> Something else</li>
+                                <li> <input type="checkbox"> Something else</li>
+                                <li> <input type="checkbox"> Something else</li>
+                                <li> <input type="checkbox"> Something else</li>
+                                <li> <input type="checkbox"> Something else</li>
+                                <li> <input type="checkbox"> Something else</li>
+                                <li> <input type="checkbox"> Something else</li>
+                                <li> <input type="checkbox"> Something else</li>
+                                <li> <input type="checkbox"> Something else</li>
+                                <li> <input type="checkbox"> Something else</li>
+                            </ul>
+                            <div class="input-group mb-3">
+                                <input type="text" class="form-control" placeholder="New Todo" aria-label="New To-do" aria-describedby="button-addon2">
+                                <div class="input-group-append">
+                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2" style="font-weight: 800;">+</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+            </div>
+        </div>
+    </main>
+
+    <footer class="text-muted">
+        <div style="height: 200px; background-color: white">
+            <div class="container" style="padding-top: 70px;">
+                <p class="float-right">
+                  <a href="#">Back to top</a>
+                </p>
+                <p>Thank you for using &copy; PomodoroManager.</p>
+                <p>Developed by Iskandar Mamadnazarov. Please visit my page on <a href="https://github.com/iskandarko">GitHub</a> or find me on <a href="https://www.linkedin.com/in/iskandar-mamadnazarov-471240182/">LinkedIn</a>.</p>
+              </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>
