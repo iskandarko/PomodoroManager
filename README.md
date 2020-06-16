@@ -1,0 +1,1 @@
+Simple and easy to use time management application.
