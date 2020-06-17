@@ -16,8 +16,10 @@ class Timer {
 
     start() {
         if (!this.isRunning) {
-            this.isRunning = true;
-            this.countdown();
+            setTimeout(() => {            
+                this.isRunning = true;
+                this.countdown();
+            }, 500);
         } else return;
     }
 
@@ -27,7 +29,7 @@ class Timer {
             this.isRunning = false;
             this.isReseted = false;
             this.timeLeftAtStopBtnPressed = this.timeLeft;
-        }
+        } else return;
     }
 
     reset() {
