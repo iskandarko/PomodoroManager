@@ -15,12 +15,16 @@ class Timer {
     }
 
     start() {
-        if (!this.isRunning) {
-            setTimeout(() => {            
-                this.isRunning = true;
-                this.countdown();
-            }, 500);
+        if (!this.isRunning) {   
+            this.isRunning = true;
+            this.countdown();
         } else return;
+    }
+    
+    delayedStart() {
+        setTimeout(() => {
+            this.start();
+        }, 500);
     }
 
     stop() {
@@ -42,7 +46,7 @@ class Timer {
 
     restart() {
         this.reset();
-        this.start();
+        this.delayedStart();
     }
 
     setPomodoroMode() {
@@ -188,10 +192,6 @@ function setLongBreak() {
 
 function bootstrapBtnsStateManager(state) {
     switch (state) {
-        // case 'initial':
-        //     stopBtn.checked = true;
-        //     stopBtn.parentNode.classList.add("active");
-        //     break;
         case 'reset':
             setTimeout(() => {
                 resetBtn.checked = false;
@@ -211,7 +211,7 @@ function bootstrapBtnsStateManager(state) {
                 stopBtn.parentNode.classList.remove("active");
                 startBtn.checked = true;
                 startBtn.parentNode.classList.add("active");
-            }, 200);
+            }, 500);
             break;
         default:
             break;
