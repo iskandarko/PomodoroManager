@@ -1,4 +1,26 @@
 
+let timerDisplay = document.getElementById("timer");
+let startBtn = document.getElementById("startButton");
+let stopBtn = document.getElementById("stopButton");
+let resetBtn = document.getElementById("resetButton");
+let pomodoroBtn = document.getElementById("pomodoroButton");
+let shortBreakBtn = document.getElementById("shortBreakButton");
+let longBreakBtn = document.getElementById("longBreakButton");
+
+startBtn.addEventListener("click", startCountdown);
+stopBtn.addEventListener("click", stopCountdown);
+resetBtn.addEventListener("click", resetCountdown);
+pomodoroBtn.addEventListener("click", setPomodoro);
+shortBreakBtn.addEventListener("click", setShortBreak);
+longBreakBtn.addEventListener("click", setLongBreak);
+
+let isReadingTimerState = false;
+let alarmSound = new Audio ('oldschoolRing.mp3');
+let pomodoroPeriod = 25;
+let shortBreakPeriod = 5;
+let longBreakPeriod = 10;
+
+
 class Timer {
 
     isRunning = false;
@@ -139,28 +161,8 @@ class Timer {
 }
 
 
-let isReadingTimerState = false;
-let alarmSound = new Audio ('oldschoolRing.mp3');
-let pomodoroPeriod = 25;
-let shortBreakPeriod = 5;
-let longBreakPeriod = 10;
-
-let timerDisplay = document.getElementById("timer");
-let startBtn = document.getElementById("startBtn");
-let stopBtn = document.getElementById("stopBtn");
-let resetBtn = document.getElementById("resetBtn");
-let pomodoroBtn = document.getElementById("pomodoroBtn");
-let shortBreakBtn = document.getElementById("shortBreakBtn");
-let longBreakBtn = document.getElementById("longBreakBtn");
-
-startBtn.addEventListener("click", startCountdown);
-stopBtn.addEventListener("click", stopCountdown);
-resetBtn.addEventListener("click", resetCountdown);
-pomodoroBtn.addEventListener("click", setPomodoro);
-shortBreakBtn.addEventListener("click", setShortBreak);
-longBreakBtn.addEventListener("click", setLongBreak);
-
 let timer = new Timer(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod);
+
 
 function startCountdown(){
     timer.start();
@@ -194,26 +196,42 @@ function bootstrapBtnsStateManager(state) {
     switch (state) {
         case 'reset':
             setTimeout(() => {
-                resetBtn.checked = false;
-                stopBtn.checked = true;
-                resetBtn.parentNode.classList.remove("active");
-                stopBtn.parentNode.classList.add("active");
-                stopBtn.parentNode.focus();
+                switchResetToStopBtn();
             }, 200);
             break;
         case 'restart':
-            stopBtn.parentNode.classList.remove("active");
-            startBtn.parentNode.classList.remove("active");
-            resetBtn.parentNode.classList.add("active");
+            switchStopOrStartToResetBtn();
             setTimeout(() => {
-                resetBtn.parentNode.classList.remove("active");
-                stopBtn.checked = false;
-                stopBtn.parentNode.classList.remove("active");
-                startBtn.checked = true;
-                startBtn.parentNode.classList.add("active");
+                switchResetToStartBtn();
             }, 500);
             break;
         default:
             break;
     }
+}
+
+function switchResetToStopBtn() {
+    resetBtn.checked = false;
+    stopBtn.checked = true;
+    resetBtn.parentNode.classList.remove("active");
+    stopBtn.parentNode.classList.add("active");
+    stopBtn.parentNode.focus();
+}
+
+function switchStopOrStartToResetBtn() {
+    stopBtn.checked = false;
+    startBtn.checked = false;
+    resetBtn.checked = true;
+    stopBtn.parentNode.classList.remove("active");
+    startBtn.parentNode.classList.remove("active");
+    resetBtn.parentNode.classList.add("active");
+}
+
+function switchResetToStartBtn() {
+    resetBtn.checked = false;
+    stopBtn.checked = false;
+    startBtn.checked = true;
+    resetBtn.parentNode.classList.remove("active");
+    stopBtn.parentNode.classList.remove("active");
+    startBtn.parentNode.classList.add("active");
 }
