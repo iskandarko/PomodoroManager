@@ -6,6 +6,11 @@ let resetBtn = document.getElementById("resetButton");
 let pomodoroBtn = document.getElementById("pomodoroButton");
 let shortBreakBtn = document.getElementById("shortBreakButton");
 let longBreakBtn = document.getElementById("longBreakButton");
+let saveSettingsBtn = document.getElementById("saveSettingsBtn");
+
+let settingsPomodoro = document.getElementById("settingsPomodoro");
+let settingsShortBreak = document.getElementById("settingsShortBreak");
+let settingslongBreak = document.getElementById("settingslongBreak");
 
 startBtn.addEventListener("click", startCountdown);
 stopBtn.addEventListener("click", stopCountdown);
@@ -13,8 +18,9 @@ resetBtn.addEventListener("click", resetCountdown);
 pomodoroBtn.addEventListener("click", setPomodoro);
 shortBreakBtn.addEventListener("click", setShortBreak);
 longBreakBtn.addEventListener("click", setLongBreak);
+saveSettingsBtn.addEventListener("click", saveSettingsManager);
 
-let isReadingTimerState = false;
+let timer;
 let alarmSound = new Audio ('oldschoolRing.mp3');
 let pomodoroPeriod = 25;
 let shortBreakPeriod = 5;
@@ -159,9 +165,12 @@ class Timer {
     }
 }
 
+setupTimer();
 
-let timer = new Timer(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod);
-
+function setupTimer() {
+    timer = new Timer(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod);
+    timer.updateDisplay();
+}
 
 function startCountdown(){
     timer.start();
@@ -189,6 +198,26 @@ function setShortBreak() {
 function setLongBreak() {
     timer.setLongBreakMode();
     bootstrapBtnsStateManager('restart');
+}
+
+function saveSettingsManager() {
+    if (!isInteger(settingsPomodoro.value) || !isInteger(settingsShortBreak.value) || !isInteger(settingsLongBreak.value)) {
+        alert("Please enter positive integers for all modes");
+    } else {
+        applySettings(settingsPomodoro.value, settingsShortBreak.value, settingsLongBreak.value);
+        setupTimer();
+        $('#settingsModal').modal('toggle');
+    }
+}
+
+function applySettings(newPomodoroPeriod, newShortBreakPeriod, newlongBreakPeriod) {
+    pomodoroPeriod = newPomodoroPeriod;
+    shortBreakPeriod = newShortBreakPeriod;
+    longBreakPeriod = newlongBreakPeriod;
+}
+
+function isInteger(num) {
+    return Math.floor(num) == num && num > 0;
 }
 
 function bootstrapBtnsStateManager(state) {
