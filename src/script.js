@@ -18,14 +18,14 @@ resetBtn.addEventListener("click", resetCountdown);
 pomodoroBtn.addEventListener("click", setPomodoro);
 shortBreakBtn.addEventListener("click", setShortBreak);
 longBreakBtn.addEventListener("click", setLongBreak);
-saveSettingsBtn.addEventListener("click", saveSettingsManager);
+saveSettingsBtn.addEventListener("click", updateTimerSettings);
 
-let timer;
-let alarmSound = new Audio ('oldschoolRing.mp3');
+let alarmSound = new Audio ("sounds/oldschoolRing.mp3");
 let pomodoroPeriod = 25;
 let shortBreakPeriod = 5;
 let longBreakPeriod = 10;
 
+///////////////// Timer class declaration
 
 class Timer {
 
@@ -38,6 +38,14 @@ class Timer {
         this.isRunning = false;
         this.isReseted = true;
         this.timeIsUp = false;
+        this.mode = "pomodoro";
+    }
+
+    setSettings(alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod) {
+        this.alarmSound = alarmSound;
+        this.pomodoroPeriod = pomodoroPeriod;
+        this.shortBreakPeriod = shortBreakPeriod;
+        this.longBreakPeriod = longBreakPeriod;
         this.mode = "pomodoro";
     }
 
@@ -165,12 +173,9 @@ class Timer {
     }
 }
 
-setupTimer();
+///////////////// Contorl functions
 
-function setupTimer() {
-    timer = new Timer(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod);
-    timer.updateDisplay();
-}
+const timer = new Timer(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod);
 
 function startCountdown(){
     timer.start();
@@ -182,71 +187,79 @@ function stopCountdown() {
 
 function resetCountdown() {
     timer.reset();
-    bootstrapBtnsStateManager('reset');
+    bootstrapBtnsStateHacker('reset');
 }
 
 function setPomodoro() {
     timer.setPomodoroMode();
-    bootstrapBtnsStateManager('restart');
+    bootstrapBtnsStateHacker('restart');
 }
 
 function setShortBreak() {
     timer.setShortBreakMode();
-    bootstrapBtnsStateManager('restart');
+    bootstrapBtnsStateHacker('restart');
 }
 
 function setLongBreak() {
     timer.setLongBreakMode();
-    bootstrapBtnsStateManager('restart');
+    bootstrapBtnsStateHacker('restart');
 }
 
-function saveSettingsManager() {
-    if (!isInteger(settingsPomodoro.value) || !isInteger(settingsShortBreak.value) || !isInteger(settingsLongBreak.value)) {
-        alert("Please enter positive integers for all modes");
+function updateTimerSettings() {
+    if (!isProperValue(settingsPomodoro.value) || !isProperValue(settingsShortBreak.value) || !isProperValue(settingsLongBreak.value)) {
+        alert("Please enter a positive integer between 0 an 60 minutes");
     } else {
-        applySettings(settingsPomodoro.value, settingsShortBreak.value, settingsLongBreak.value);
-        setupTimer();
+        stopCountdown();
+        applyNewSettings(settingsPomodoro.value, settingsShortBreak.value, settingsLongBreak.value);
+        resetCountdown();
+        bootstrapBtnsStateHacker('pomodoro');
         $('#settingsModal').modal('toggle');
     }
 }
 
-function applySettings(newPomodoroPeriod, newShortBreakPeriod, newlongBreakPeriod) {
+function applyNewSettings(newPomodoroPeriod, newShortBreakPeriod, newlongBreakPeriod) {
     pomodoroPeriod = newPomodoroPeriod;
     shortBreakPeriod = newShortBreakPeriod;
     longBreakPeriod = newlongBreakPeriod;
+
+    timer.setSettings(alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod)
 }
 
-function isInteger(num) {
-    return Math.floor(num) == num && num > 0;
+function isProperValue(num) {
+    return Math.floor(num) == num && num > 0 && num <= 60;
 }
 
-function bootstrapBtnsStateManager(state) {
+function bootstrapBtnsStateHacker(state) {
     switch (state) {
         case 'reset':
             setTimeout(() => {
-                switchResetToStopBtn();
+                switchToStopBtn();
             }, 200);
             break;
         case 'restart':
-            switchStopOrStartToResetBtn();
+            switchToResetBtn();
             setTimeout(() => {
                 switchResetToStartBtn();
             }, 500);
             break;
+        case 'pomodoro':
+            switchModeToPomodoro();
         default:
             break;
     }
 }
 
-function switchResetToStopBtn() {
+function switchToStopBtn() {
+    startBtn.checked = false;
     resetBtn.checked = false;
     stopBtn.checked = true;
+    startBtn.parentNode.classList.remove("active");
     resetBtn.parentNode.classList.remove("active");
     stopBtn.parentNode.classList.add("active");
     stopBtn.parentNode.focus();
 }
 
-function switchStopOrStartToResetBtn() {
+function switchToResetBtn() {
     stopBtn.checked = false;
     startBtn.checked = false;
     resetBtn.checked = true;
@@ -262,4 +275,13 @@ function switchResetToStartBtn() {
     resetBtn.parentNode.classList.remove("active");
     stopBtn.parentNode.classList.remove("active");
     startBtn.parentNode.classList.add("active");
+}
+
+function switchModeToPomodoro() {
+    longBreakBtn.checked = false;
+    shortBreakBtn.checked = false;
+    pomodoroBtn.checked = true;
+    longBreakBtn.parentNode.classList.remove("active");
+    shortBreakBtn.parentNode.classList.remove("active");
+    pomodoroBtn.parentNode.classList.add("active");
 }
