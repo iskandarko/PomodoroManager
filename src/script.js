@@ -20,7 +20,8 @@ shortBreakBtn.addEventListener("click", setShortBreak);
 longBreakBtn.addEventListener("click", setLongBreak);
 saveSettingsBtn.addEventListener("click", updateTimerSettings);
 
-let alarmSound = new Audio ("sounds/oldschoolRing.mp3");
+let sounds = [new Audio("sounds/oldBell.mp3"), new Audio("sounds/alarmClock.mp3")]
+let alarmSound = sounds[0];
 let pomodoroPeriod = 25;
 let shortBreakPeriod = 5;
 let longBreakPeriod = 10;
@@ -42,10 +43,10 @@ class Timer {
     }
 
     setSettings(alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod) {
-        this.alarmSound = alarmSound;
         this.pomodoroPeriod = pomodoroPeriod;
         this.shortBreakPeriod = shortBreakPeriod;
         this.longBreakPeriod = longBreakPeriod;
+        this.alarmSound = alarmSound;
         this.mode = "pomodoro";
     }
 
@@ -173,7 +174,7 @@ class Timer {
     }
 }
 
-///////////////// Contorl functions
+///////////////// Main logic
 
 const timer = new Timer(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod);
 
@@ -210,14 +211,15 @@ function updateTimerSettings() {
         alert("Please enter a positive integer between 0 an 60 minutes");
     } else {
         stopCountdown();
-        applyNewSettings(settingsPomodoro.value, settingsShortBreak.value, settingsLongBreak.value);
+        applyNewSettings(getSelectedSound(), settingsPomodoro.value, settingsShortBreak.value, settingsLongBreak.value);
         resetCountdown();
         bootstrapBtnsStateHacker('pomodoro');
         $('#settingsModal').modal('toggle');
     }
 }
 
-function applyNewSettings(newPomodoroPeriod, newShortBreakPeriod, newlongBreakPeriod) {
+function applyNewSettings(newAlarmSound, newPomodoroPeriod, newShortBreakPeriod, newlongBreakPeriod) {
+    alarmSound = newAlarmSound;
     pomodoroPeriod = newPomodoroPeriod;
     shortBreakPeriod = newShortBreakPeriod;
     longBreakPeriod = newlongBreakPeriod;
@@ -227,6 +229,10 @@ function applyNewSettings(newPomodoroPeriod, newShortBreakPeriod, newlongBreakPe
 
 function isProperValue(num) {
     return Math.floor(num) == num && num > 0 && num <= 60;
+}
+
+function getSelectedSound() {
+    return sounds[document.querySelector('input[name="sounds"]:checked').value];
 }
 
 function bootstrapBtnsStateHacker(state) {
