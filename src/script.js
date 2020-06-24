@@ -19,6 +19,7 @@ pomodoroBtn.addEventListener("click", setPomodoro);
 shortBreakBtn.addEventListener("click", setShortBreak);
 longBreakBtn.addEventListener("click", setLongBreak);
 saveSettingsBtn.addEventListener("click", updateTimerSettings);
+resetSettingsBtn.addEventListener("click", resetTimerSettings)
 
 let sounds = [new Audio("sounds/oldBell.mp3"), new Audio("sounds/alarmClock.mp3")]
 let alarmSound = sounds[0];
@@ -208,7 +209,7 @@ function setLongBreak() {
 
 function updateTimerSettings() {
     if (!isProperValue(settingsPomodoro.value) || !isProperValue(settingsShortBreak.value) || !isProperValue(settingsLongBreak.value)) {
-        alert("Please enter a positive integer between 0 an 60 minutes");
+        alert("Please set a positive integer between 0 and 60 minutes");
     } else {
         stopCountdown();
         applyNewSettings(getSelectedSound(), settingsPomodoro.value, settingsShortBreak.value, settingsLongBreak.value);
@@ -233,6 +234,13 @@ function isProperValue(num) {
 
 function getSelectedSound() {
     return sounds[document.querySelector('input[name="sounds"]:checked').value];
+}
+
+function resetTimerSettings() {
+    settingsPomodoro.value = 25;
+    settingsShortBreak.value = 5;
+    settingsLongBreak.value = 10;
+    document.getElementById("oldBell").checked = true;
 }
 
 function bootstrapBtnsStateHacker(state) {
