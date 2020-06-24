@@ -7,10 +7,15 @@ let pomodoroBtn = document.getElementById("pomodoroButton");
 let shortBreakBtn = document.getElementById("shortBreakButton");
 let longBreakBtn = document.getElementById("longBreakButton");
 let saveSettingsBtn = document.getElementById("saveSettingsBtn");
-
 let settingsPomodoro = document.getElementById("settingsPomodoro");
 let settingsShortBreak = document.getElementById("settingsShortBreak");
 let settingslongBreak = document.getElementById("settingslongBreak");
+
+let sounds = [new Audio("sounds/oldBell.mp3"), new Audio("sounds/alarmClock.mp3")]
+let alarmSound = sounds[0];
+let pomodoroPeriod = 25;
+let shortBreakPeriod = 5;
+let longBreakPeriod = 10;
 
 startBtn.addEventListener("click", startCountdown);
 stopBtn.addEventListener("click", stopCountdown);
@@ -19,13 +24,11 @@ pomodoroBtn.addEventListener("click", setPomodoro);
 shortBreakBtn.addEventListener("click", setShortBreak);
 longBreakBtn.addEventListener("click", setLongBreak);
 saveSettingsBtn.addEventListener("click", updateTimerSettings);
-resetSettingsBtn.addEventListener("click", resetTimerSettings)
+resetSettingsBtn.addEventListener("click", resetTimerSettings);
 
-let sounds = [new Audio("sounds/oldBell.mp3"), new Audio("sounds/alarmClock.mp3")]
-let alarmSound = sounds[0];
-let pomodoroPeriod = 25;
-let shortBreakPeriod = 5;
-let longBreakPeriod = 10;
+for (i = 0; i < sounds.length; i++) {
+    sounds[i].addEventListener("playing", bootstrapBtnsStateHacker);
+}
 
 ///////////////// Timer class declaration
 
@@ -259,6 +262,7 @@ function bootstrapBtnsStateHacker(state) {
         case 'pomodoro':
             switchModeToPomodoro();
         default:
+            switchToStopBtn();
             break;
     }
 }
