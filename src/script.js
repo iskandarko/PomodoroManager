@@ -26,11 +26,10 @@ longBreakBtn.addEventListener("click", setLongBreak);
 saveSettingsBtn.addEventListener("click", updateTimerSettings);
 resetSettingsBtn.addEventListener("click", resetTimerSettings);
 
-for (i = 0; i < sounds.length; i++) {
+for (let i = 0; i < sounds.length; i++) {
     sounds[i].addEventListener("playing", bootstrapBtnsStateHacker);
 }
 
-///////////////// Timer class declaration
 
 class Timer {
 
@@ -178,7 +177,7 @@ class Timer {
     }
 }
 
-///////////////// Main logic
+
 
 const timer = new Timer(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod);
 
