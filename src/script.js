@@ -315,16 +315,10 @@ function notifyMe() {
 
     if ("Notification" in window) {
         console.log("notifications supported");
-        console.log("notifications permission status: " + Netification.permission)
+        console.log("notifications permission status: " + Notification.permission)
         
         if (Notification.permission !== "denied") {
-            console.log("notifications not denied condition")
-            let title = "Testing";
-            let options = {
-                body: "hi there!"
-            }
-            let notification = new Notification(title, options);
-        } else {
+
             console.log("request notification condition")
             Notification.requestPermission()
                 .then((result) => {
@@ -332,10 +326,21 @@ function notifyMe() {
                     Notification.permission = result;
                 }
                     console.log(result);
+                    if (Notification.permission === "granted") {
+                        console.log("notification granted");
+                        // let title = "Testing";
+                        // let options = {
+                        //     body: "hi there!"
+                        // }
+                        let notification = new Notification("test");
+
+                    }
                 })
                 .catch((err) => {
                     console.log(err);
                 });
-        }
+        
+
+        } 
     }
 }
