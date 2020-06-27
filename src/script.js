@@ -183,6 +183,7 @@ const timer = new Timer(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeri
 
 function startCountdown(){
     timer.start();
+    notifyMe();
 }
 
 function stopCountdown() {
@@ -301,4 +302,39 @@ function switchModeToPomodoro() {
     longBreakBtn.parentNode.classList.remove("active");
     shortBreakBtn.parentNode.classList.remove("active");
     pomodoroBtn.parentNode.classList.add("active");
+}
+
+
+
+
+
+
+function notifyMe() {
+    // Let's check if the browser supports notifications
+    console.log('started');
+
+    if ("Notification" in window) {
+        console.log("notifications supported");
+        
+        if (Notification.permission !== "denied") {
+            console.log("notifications allowed condition")
+            let title = "Hi there";
+            let options = {
+                body: "hi there!"
+            }
+            let notification = new Notification("Test", options);
+        } else {
+            console.log("request notification condition")
+            Notification.requestPermission()
+                .then((result) => {
+                    if(!('permission' in Notification)) {
+                    Notification.permission = result;
+                }
+                    console.log(result);
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        }
+    }
 }
