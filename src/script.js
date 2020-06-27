@@ -315,14 +315,15 @@ function notifyMe() {
 
     if ("Notification" in window) {
         console.log("notifications supported");
+        console.log("notifications permission status: " + Netification.permission)
         
         if (Notification.permission !== "denied") {
-            console.log("notifications allowed condition")
-            let title = "Hi there";
+            console.log("notifications not denied condition")
+            let title = "Testing";
             let options = {
                 body: "hi there!"
             }
-            let notification = new Notification("Test", options);
+            let notification = new Notification(title, options);
         } else {
             console.log("request notification condition")
             Notification.requestPermission()
