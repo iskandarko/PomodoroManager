@@ -274,6 +274,7 @@ function updateTimerSettings() {
         resetCountdown();
         bootstrapBtnsStateHacker('pomodoro');
         $('#settingsModal').modal('toggle');
+        manageNotificationsSettings(); 
     }
 }
 
@@ -306,7 +307,6 @@ function requestNotificationPermission() {
         .then((result) => {
             if(!('permission' in Notification)) {
             Notification.permission = result;
-            manageNotificationsSettings();
         } 
         })
         .catch((err) => {
