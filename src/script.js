@@ -224,8 +224,7 @@ function notify() {
             console.log("notification launched");
             let title = "PomodoroManager";
             let options = {
-                body: "Buzzz!!!",
-                requireInteraction: true
+                body: "Buzzz!!!"
             }
             let notification = new Notification(title, options);
         }
