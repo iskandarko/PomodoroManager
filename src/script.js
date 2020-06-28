@@ -306,6 +306,8 @@ function requestNotificationPermission() {
         .then((result) => {
             if(!('permission' in Notification)) {
             Notification.permission = result;
+            notificationsSettingsHide();
+            alertAboutNotificationsHide();
         } 
         })
         .catch((err) => {
