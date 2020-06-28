@@ -33,7 +33,7 @@ for (let i = 0; i < sounds.length; i++) {
 
 class Timer {
 
-    constructor(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod) {
+    constructor(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod, callThisFuncWhenTimeIsUp) {
         this.timerDisplay = timerDisplay;
         this.alarmSound = alarmSound;
         this.pomodoroPeriod = pomodoroPeriod;
@@ -43,6 +43,7 @@ class Timer {
         this.isReseted = true;
         this.timeIsUp = false;
         this.mode = "pomodoro";
+        this.callThisFuncWhenTimeIsUp = callThisFuncWhenTimeIsUp;
     }
 
     setSettings(alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod) {
@@ -135,6 +136,7 @@ class Timer {
         this.isReseted = true;
         this.alarm();
         clearInterval(this.timerInterval);
+        this.callThisFuncWhenTimeIsUp();
     }
 
     formatTime(value) {
@@ -179,7 +181,7 @@ class Timer {
 
 
 
-const timer = new Timer(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod);
+const timer = new Timer(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod, notify);
 
 function startCountdown(){
     timer.start();
@@ -304,43 +306,26 @@ function switchModeToPomodoro() {
     pomodoroBtn.parentNode.classList.add("active");
 }
 
-
-
-
-
-
-function notifyMe() {
-    // Let's check if the browser supports notifications
-    console.log('started');
-
+function notify() {
     if ("Notification" in window) {
-        console.log("notifications supported");
-        console.log("notifications permission status: " + Notification.permission)
-        
         if (Notification.permission !== "denied") {
-
-            console.log("request notification condition")
             Notification.requestPermission()
                 .then((result) => {
                     if(!('permission' in Notification)) {
                     Notification.permission = result;
                 }
-                    console.log(result);
                     if (Notification.permission === "granted") {
                         console.log("notification granted");
-                        // let title = "Testing";
-                        // let options = {
-                        //     body: "hi there!"
-                        // }
-                        let notification = new Notification("test");
-
+                        let title = "PomodoroManager";
+                        let options = {
+                            body: "Time is up!"
+                        }
+                        let notification = new Notification(title, body);
                     }
                 })
                 .catch((err) => {
                     console.log(err);
                 });
-        
-
         } 
     }
 }
