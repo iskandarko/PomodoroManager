@@ -223,7 +223,9 @@ function notify() {
         if (Notification.permission === "granted") {
             let title = "PomodoroManager";
             let options = {
-                body: "Buzzz!!!"
+                body: "Buzzz!!!",
+                requireInteraction: true,
+                icon: "images/favicon.png"
             }
             let notification = new Notification(title, options);
         }
