@@ -11,7 +11,7 @@ let settingsPomodoro = document.getElementById("settingsPomodoro");
 let settingsShortBreak = document.getElementById("settingsShortBreak");
 let settingslongBreak = document.getElementById("settingslongBreak");
 
-let sounds = [new Audio("sounds/oldBell.mp3"), new Audio("sounds/alarmClock.mp3")]
+let sounds = [new Audio("sounds/oldBell.mp3"), new Audio("sounds/alarmClock.mp3")];
 let alarmSound = sounds[0];
 let pomodoroPeriod = 25;
 let shortBreakPeriod = 5;
@@ -26,14 +26,14 @@ longBreakBtn.addEventListener("click", setLongBreak);
 saveSettingsBtn.addEventListener("click", updateTimerSettings);
 resetSettingsBtn.addEventListener("click", resetTimerSettings);
 
-for (let i = 0; i < sounds.length; i++) {
-    sounds[i].addEventListener("playing", bootstrapBtnsStateHacker);
-}
+// for (let i = 0; i < sounds.length; i++) {
+//     sounds[i].addEventListener("playing", bootstrapBtnsStateHacker);
+// }
 
 
 class Timer {
 
-    constructor(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod, callThisFuncWhenTimeIsUp) {
+    constructor(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod, callWhenTimeIsUpFunc) {
         this.timerDisplay = timerDisplay;
         this.alarmSound = alarmSound;
         this.pomodoroPeriod = pomodoroPeriod;
@@ -43,7 +43,7 @@ class Timer {
         this.isReseted = true;
         this.timeIsUp = false;
         this.mode = "pomodoro";
-        this.callThisFuncWhenTimeIsUp = callThisFuncWhenTimeIsUp;
+        this.callWhenTimeIsUpFunc = callWhenTimeIsUpFunc;
     }
 
     setSettings(alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod) {
@@ -136,7 +136,7 @@ class Timer {
         this.isReseted = true;
         this.alarm();
         clearInterval(this.timerInterval);
-        this.callThisFuncWhenTimeIsUp();
+        this.callWhenTimeIsUpFunc();
     }
 
     formatTime(value) {
@@ -181,7 +181,9 @@ class Timer {
 
 
 
-const timer = new Timer(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod, notify);
+const timer = new Timer(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod, callWhenTimeIsUpFunc);
+
+requestNotificationPermission();
 
 function startCountdown(){
     timer.start();
@@ -209,6 +211,23 @@ function setShortBreak() {
 function setLongBreak() {
     timer.setLongBreakMode();
     bootstrapBtnsStateHacker('restart');
+}
+
+function callWhenTimeIsUpFunc() {
+    notify();
+    bootstrapBtnsStateHacker();
+}
+
+function notify() {
+    if ("Notification" in window) {
+        if (Notification.permission === "granted") {
+            let title = "PomodoroManager";
+            let options = {
+                body: "Buzzz!!!"
+            }
+            let notification = new Notification(title, options);
+        }
+    }
 }
 
 function updateTimerSettings() {
@@ -245,6 +264,22 @@ function resetTimerSettings() {
     settingsShortBreak.value = 5;
     settingsLongBreak.value = 10;
     document.getElementById("oldBell").checked = true;
+}
+
+function requestNotificationPermission() {
+    if ("Notification" in window) {
+        if (Notification.permission !== "denied") {
+            Notification.requestPermission()
+                .then((result) => {
+                    if(!('permission' in Notification)) {
+                    Notification.permission = result;
+                }
+                })
+                .catch((err) => {
+                    console.log(err);
+                });
+        } 
+    }
 }
 
 function bootstrapBtnsStateHacker(state) {
@@ -303,28 +338,4 @@ function switchModeToPomodoro() {
     longBreakBtn.parentNode.classList.remove("active");
     shortBreakBtn.parentNode.classList.remove("active");
     pomodoroBtn.parentNode.classList.add("active");
-}
-
-function notify() {
-    if ("Notification" in window) {
-        if (Notification.permission !== "denied") {
-            Notification.requestPermission()
-                .then((result) => {
-                    if(!('permission' in Notification)) {
-                    Notification.permission = result;
-                }
-                    if (Notification.permission === "granted") {
-                        console.log("notification granted");
-                        let title = "PomodoroManager";
-                        let options = {
-                            body: "Time is up!"
-                        }
-                        let notification = new Notification(title, options);
-                    }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        } 
-    }
 }
