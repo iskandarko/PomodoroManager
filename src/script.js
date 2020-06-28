@@ -10,6 +10,8 @@ let saveSettingsBtn = document.getElementById("saveSettingsBtn");
 let settingsPomodoro = document.getElementById("settingsPomodoro");
 let settingsShortBreak = document.getElementById("settingsShortBreak");
 let settingslongBreak = document.getElementById("settingslongBreak");
+let settingsNotifications = document.getElementById("settingsNotifications");
+let notificationsAllowBtn = document.getElementById("notificationsAllowBtn");
 
 let sounds = [new Audio("sounds/oldBell.mp3"), new Audio("sounds/alarmClock.mp3")];
 let alarmSound = sounds[0];
@@ -25,10 +27,7 @@ shortBreakBtn.addEventListener("click", setShortBreak);
 longBreakBtn.addEventListener("click", setLongBreak);
 saveSettingsBtn.addEventListener("click", updateTimerSettings);
 resetSettingsBtn.addEventListener("click", resetTimerSettings);
-
-// for (let i = 0; i < sounds.length; i++) {
-//     sounds[i].addEventListener("playing", bootstrapBtnsStateHacker);
-// }
+notificationsAllowBtn.addEventListener("click", requestNotificationPermission);
 
 
 class Timer {
@@ -181,9 +180,19 @@ class Timer {
 
 
 
+
+
+
+
+
 const timer = new Timer(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod, callWhenTimeIsUpFunc);
 
-requestNotificationPermission();
+window.onload = () => {
+    if (("Notification" in window) && (Notification.permission !== "denied")) {
+        requestNotificationPermission();
+    } 
+    notificationsSettingsDisplay();
+}
 
 function startCountdown(){
     timer.start();
@@ -217,6 +226,9 @@ function callWhenTimeIsUpFunc() {
     notify();
     bootstrapBtnsStateHacker();
 }
+
+
+
 
 function notify() {
     if ("Notification" in window) {
@@ -268,18 +280,23 @@ function resetTimerSettings() {
 }
 
 function requestNotificationPermission() {
-    if ("Notification" in window) {
-        if (Notification.permission !== "denied") {
-            Notification.requestPermission()
-                .then((result) => {
-                    if(!('permission' in Notification)) {
-                    Notification.permission = result;
-                }
-                })
-                .catch((err) => {
-                    console.log(err);
-                });
-        } 
+    Notification.requestPermission()
+        .then((result) => {
+            if(!('permission' in Notification)) {
+            Notification.permission = result;
+        }
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+    notificationsSettingsDisplay();
+}
+
+function notificationsSettingsDisplay() {
+    if (("Notification" in window) && (Notification.permission === "granted")) {
+        settingsNotifications.style.display = "none";
+    } else {
+        settingsNotifications.style.display = "block";
     }
 }
 
