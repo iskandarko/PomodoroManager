@@ -11,6 +11,7 @@ let settingsPomodoro = document.getElementById("settingsPomodoro");
 let settingsShortBreak = document.getElementById("settingsShortBreak");
 let settingslongBreak = document.getElementById("settingslongBreak");
 let settingsNotifications = document.getElementById("settingsNotifications");
+let alertAboutNotifications = document.getElementById("alertAboutNotifications");
 let notificationsAllowBtn = document.getElementById("notificationsAllowBtn");
 
 let sounds = [new Audio("sounds/oldBell.mp3"), new Audio("sounds/alarmClock.mp3")];
@@ -227,10 +228,28 @@ function callWhenTimeIsUpFunc() {
 function manageNotificationsSettings() {
     if (("Notification" in window) && (Notification.permission === "default")) {
         notificationsSettingsShow();
+        alertAboutNotificationsShow();
     } else {
         notificationsSettingsHide();
+        alertAboutNotificationsHide();
     }
 }    
+
+function notificationsSettingsShow() {
+    settingsNotifications.style.display = "block";
+}
+
+function notificationsSettingsHide() {
+    settingsNotifications.style.display = "none";
+}
+
+function alertAboutNotificationsShow() {
+    alertAboutNotifications.style.display = "block";
+}
+
+function alertAboutNotificationsHide() {
+    alertAboutNotifications.style.display = "none";
+}
 
 
 function notify() {
@@ -292,14 +311,6 @@ function requestNotificationPermission() {
         .catch((err) => {
             console.log(err);
         });
-}
-
-function notificationsSettingsShow() {
-    settingsNotifications.style.display = "block";
-}
-
-function notificationsSettingsHide() {
-    settingsNotifications.style.display = "none";
 }
 
 function bootstrapBtnsStateHacker(state) {
