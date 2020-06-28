@@ -185,7 +185,6 @@ const timer = new Timer(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeri
 
 function startCountdown(){
     timer.start();
-    notifyMe();
 }
 
 function stopCountdown() {
@@ -320,7 +319,7 @@ function notify() {
                         let options = {
                             body: "Time is up!"
                         }
-                        let notification = new Notification(title, body);
+                        let notification = new Notification(title, options);
                     }
                 })
                 .catch((err) => {
