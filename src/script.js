@@ -221,6 +221,7 @@ function callWhenTimeIsUpFunc() {
 function notify() {
     if ("Notification" in window) {
         if (Notification.permission === "granted") {
+            console.log("notification launched");
             let title = "PomodoroManager";
             let options = {
                 body: "Buzzz!!!",
