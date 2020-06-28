@@ -188,10 +188,7 @@ class Timer {
 const timer = new Timer(timerDisplay, alarmSound, pomodoroPeriod, shortBreakPeriod, longBreakPeriod, callWhenTimeIsUpFunc);
 
 window.onload = () => {
-    if (("Notification" in window) && (Notification.permission !== "denied")) {
-        requestNotificationPermission();
-    } 
-    notificationsSettingsDisplay();
+    manageNotificationsSettings();
 }
 
 function startCountdown(){
@@ -227,7 +224,13 @@ function callWhenTimeIsUpFunc() {
     bootstrapBtnsStateHacker();
 }
 
-
+function manageNotificationsSettings() {
+    if (("Notification" in window) && (Notification.permission === "default")) {
+        notificationsSettingsShow();
+    } else {
+        notificationsSettingsHide();
+    }
+}    
 
 
 function notify() {
@@ -284,20 +287,19 @@ function requestNotificationPermission() {
         .then((result) => {
             if(!('permission' in Notification)) {
             Notification.permission = result;
-        }
+        } 
         })
         .catch((err) => {
             console.log(err);
         });
-    notificationsSettingsDisplay();
 }
 
-function notificationsSettingsDisplay() {
-    if (("Notification" in window) && (Notification.permission === "granted")) {
-        settingsNotifications.style.display = "none";
-    } else {
-        settingsNotifications.style.display = "block";
-    }
+function notificationsSettingsShow() {
+    settingsNotifications.style.display = "block";
+}
+
+function notificationsSettingsHide() {
+    settingsNotifications.style.display = "none";
 }
 
 function bootstrapBtnsStateHacker(state) {
