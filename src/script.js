@@ -224,8 +224,7 @@ function notify() {
             let title = "PomodoroManager";
             let options = {
                 body: "Buzzz!!!",
-                requireInteraction: true,
-                icon: "images/favicon.png"
+                requireInteraction: true
             }
             let notification = new Notification(title, options);
         }
