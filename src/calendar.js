@@ -1,55 +1,60 @@
 
+function getTodayEvents() {
+
+        let dayStart = new Date().setHours(0,0,0,0);
+        let dayEnd = new Date().setHours(23,59,59,999);
     
-    function getTodayEvents() {
-        gapi.client.calendar.events.list(eventsListRequestSettings)
-        .then(eventsHandler(gapiResponse));
-    }
-
-    function eventsHandler(gapiResponse){
-        let events = gapiResponse.result.items;
-
-        if (events.length > 0) {
-            for (i = 0; i < events.length; i++) {
-
-                let event = events[i];
-                let whenStart = event.start.dateTime;
-                let whenEnd = event.end.dateTime;
-                let liContent = "";
-
-                if (!whenStart) {
-                    whenStart = event.start.date;
-                }
-                if (!whenEnd) {
-                    whenEnd = '';
-                }
-
-                let li = document.createElement("li");
-
-                if (whenEnd){
-                    liContent = '[' + whenStart.slice(11, 16) + '-' +  whenEnd.slice(11, 16) + "] " + event.summary;
-                } else {
-                    liContent = event.summary;
-                } 
-                
-                li.classList.add("list-group-item");
-                let now = new Date();
-                if (event.start.dateTime && (new Date(event.start.dateTime) <= now) && (new Date(event.end.dateTime) >= now)) {
-                    li.classList.add("font-weight-bold");
-                } else if ((new Date(event.end.dateTime) <= now)) {
-                    li.classList.add("text-muted");
-                    li.classList.add("font-weight-lighter");
-                } else if (!whenEnd) {
-                    li.classList.add("text-info");
-                    // li.classList.add("font-italic");
-                }
-
+        gapi.client.calendar.events.list({
+            'calendarId': 'primary',
+            'timeMin': (new Date(dayStart)).toISOString(),
+            'timeMax' : (new Date(dayEnd)).toISOString(),
+            'showDeleted': false,
+            'singleEvents': true,
+            'maxResults': 10,
+            'orderBy': 'startTime'
+        })
+        .then((gapiResponse) => {
+            let events = gapiResponse.result.items;
+            let eventsList = document.getElementById("listOfUpcomingEvents");
+    
+            while (eventsList.firstChild) { // delete previously loaded events (if any)
+                eventsList.removeChild(eventsList.lastChild);
             }
-        } else {
-            liContent = "No upcoming events found";
-        } 
-        li.innerHTML = liContent;
-        document.getElementById("listOfUpcomingEvents").appendChild(li);
-    }
+    
+            if (events.length > 0) {
+                for (i = 0; i < events.length; i++) {
+                    let event = events[i];
+                    let whenStart = event.start.dateTime;
+                    let whenEnd = event.end.dateTime;
+                    let now = new Date();
+                    let isCurrentEvent = event.start.dateTime && (new Date(event.start.dateTime) <= now) && (new Date(event.end.dateTime) >= now);
+                    let isPassedEvent = new Date(event.end.dateTime) <= now;
+                    let li = document.createElement("li");
+        
+                    if (!whenStart) { // a whole day event
+                        li.innerHTML = event.summary;
+                        li.classList.add("text-info");
+                    } else {
+                        li.innerHTML = '[' + whenStart.slice(11, 16) + '-' +  whenEnd.slice(11, 16) + "] " + event.summary;
+                        if (isCurrentEvent) {
+                            li.classList.add("font-weight-bold");
+                        } else if (isPassedEvent) {
+                            li.classList.add("text-muted");
+                            li.classList.add("font-weight-lighter");
+                        } 
+                    }
+    
+                    li.classList.add("list-group-item");
+                    eventsList.appendChild(li);
+                }
+            } else {
+                let li = document.createElement("li");
+                li.innerHTML = "No upcoming events found";
+                li.classList.add("list-group-item");
+            } 
+        });
+}
+
 
 
 // Calendar events colors
@@ -84,3 +89,4 @@
 // function updateListOfUpcomingEvents() {
 //   for (let i = 0; i < events.length)
 // }
+

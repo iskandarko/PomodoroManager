@@ -116,24 +116,25 @@
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
-                  </div>
+                </div>
 
-                    <div class="row">
-                        
-                        <div class="col-12 d-flex justify-content-center text-center" id="timerSection">
-                            <div class="my-2 p-2 bg-white rounded shadow-sm" id="timerSection" style="height: 400px; width: 1100px;">
-                                <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-top: 100px;">
-                                    <label class="btn btn-secondary">
-                                        <input type="radio" name="modes" id="pomodoroButton" checked> Pomodoro
-                                    </label>
-                                    <label class="btn btn-secondary">
-                                        <input type="radio" name="modes" id="shortBreakButton"> Short Break
-                                    </label>
-                                    <label class="btn btn-secondary">
-                                        <input type="radio" name="modes" id="longBreakButton"> Long Break
-                                    </label>
-                                </div>
+                <div class="row">                       
+                    <div class="col-lg-12 d-flex justify-content-center text-center align-self-center" id="timerSection">
+                        <div class="my-2 p-2 bg-white rounded shadow-sm" id="timerSection" style="height: 400px; width: 1100px;">
+                            <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-top: 100px;">
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="modes" id="pomodoroButton" checked> Pomodoro
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="modes" id="shortBreakButton"> Short Break
+                                </label>
+                                <label class="btn btn-secondary">
+                                    <input type="radio" name="modes" id="longBreakButton"> Long Break
+                                </label>
+                            </div>
+
                             <h1 style="font-size: 5.0rem;"><span id="timer">25:00</span></h1>
+
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-secondary">
                                     <input type="radio" name="actions" id="startButton"> Start
@@ -146,25 +147,29 @@
                                 </label>
                             </div>
                         </div>
-
                     </div>
+                    
 
-                </div>
-
-                <div class="row">
-                    <div class="col-md-6 d-flex justify-content-center" id="calendarSection">
-                        <div class="my-2 p-2 bg-white rounded shadow-sm" id="googleCalendar" style="height: 500px; width: 530px;">
+                    <div class="col-lg-12 d-flex justify-content-center align-self-center" id="calendarSection">
+                        <div>
+                            <button id="authorize_button" style="display: none; margin-top: 20px;" class="btn btn-outline-secondary align-middle">+ Add Google Calendar</button>
+                        </div>
+                        <div class="my-2 p-2 bg-white rounded shadow-sm" id="google_calendar" style="height: 400px; max-height: 500px; width: 1100px;">
                             <div class="card" style="width: 100%;">
                                 <div class="card-header" style="background-color: #6c757d; color: white;">
-                                   <strong>Today</strong> <button class="btn btn-secondary" id="signout_button" style="display: none; float: right; border: none; padding: 0px 10px 0px 10px"><strong>X</strong></button>    
+                                    <strong>Today</strong> 
+                                    <button class="btn btn-secondary" id="signout_button" style="display: none; float: right; border: none; padding: 0px 10px 0px 10px">
+                                        <strong>X</strong>
+                                    </button>    
                                 </div>
-                                <ul id="listOfUpcomingEvents" class="list-group " style="overflow-y:scroll; height: 430px;"></ul>
-                            </div>                       
+                                <ul id="listOfUpcomingEvents" class="list-group " style="overflow-y: auto; height: 330px;"></ul>
+                            </div>
                         </div>
                     </div>
                 </div>
 
-                <button id="authorize_button" style="display: none;">Authorize</button>
+
+                
                 
 
           
@@ -233,12 +238,13 @@
         </div>
     </footer>
 
+
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
     <script src="src/timer.js"></script>
-    <script src="src/calendar.js"></script>
     <script src="src/gapiSetup.js"></script>
+    <script src="src/calendar.js"></script>
     <script async defer src="https://apis.google.com/js/api.js"
         onload="this.onload=function(){};handleClientLoad()"
         onreadystatechange="if (this.readyState === 'complete') this.onload()">
