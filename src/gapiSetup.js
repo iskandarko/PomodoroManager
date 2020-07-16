@@ -1,7 +1,8 @@
 //GOOGLE CALENDAR API SETTINGS//////////////////////
 
     // Client ID and API key from the Developer Console
-    let CLIENT_ID = '203121643188-9afap42bpoiu4jj6mqo2qoi0nl05jeic.apps.googleusercontent.com';
+    let CLIENT_ID = '203121643188-a74cesdr52dk8taqibu023as2cbi0rsj.apps.googleusercontent.com';
+    
 
     // Array of API discovery doc URLs for APIs used by the quickstart
     let DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
