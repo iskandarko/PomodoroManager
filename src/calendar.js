@@ -10,7 +10,7 @@ function getTodayEvents() {
             'timeMax' : (new Date(dayEnd)).toISOString(),
             'showDeleted': false,
             'singleEvents': true,
-            'maxResults': 10,
+            'maxResults': 50,
             'orderBy': 'startTime'
         })
         .then((gapiResponse) => {

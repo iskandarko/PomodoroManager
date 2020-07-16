@@ -2,7 +2,6 @@
 
     // Client ID and API key from the Developer Console
     let CLIENT_ID = '203121643188-9afap42bpoiu4jj6mqo2qoi0nl05jeic.apps.googleusercontent.com';
-    let API_KEY = 'AIzaSyDBYTf7cKR7T6VhdqqoxZt4i1Zw_b-Ri-A';
 
     // Array of API discovery doc URLs for APIs used by the quickstart
     let DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
@@ -32,7 +31,7 @@
      */
     function initClient() {
         gapi.client.init({
-            apiKey: API_KEY,
+            // apiKey: API_KEY,
             clientId: CLIENT_ID,
             discoveryDocs: DISCOVERY_DOCS,
             scope: SCOPES
@@ -61,33 +60,33 @@
             signoutButton.style.display = 'block';
             googleCalendar.style.display = 'block';
             
-            if (calendarSection.classList.contains("col-lg-12")) {
-                calendarSection.classList.remove("col-lg-12");
-                calendarSection.classList.add("col-lg-4");
+            if (calendarSection.classList.contains("col-md-12")) {
+                calendarSection.classList.remove("col-md-12");
+                calendarSection.classList.add("col-md-4");
             }
-            if (timerSection.classList.contains("col-lg-12")) {
-                timerSection.classList.remove("col-lg-12");
-                timerSection.classList.add("col-lg-8");
+            if (timerSection.classList.contains("col-md-12")) {
+                timerSection.classList.remove("col-md-12");
+                timerSection.classList.add("col-md-8");
             }
             getTodayEvents();
             if (!calendarUpdatingInterval) {
                 calendarUpdatingInterval = window.setInterval(()=> {
                     console.log('tic-tac');
                     getTodayEvents();
-                }, 3000) //set it to a normal value after testing
+                }, 60000)
             }
         } else {
             authorizeButton.style.display = 'block';
             signoutButton.style.display = 'none';
             googleCalendar.style.display = 'none';
 
-            if (calendarSection.classList.contains("col-lg-4")) {
-                calendarSection.classList.remove("col-lg-4");
-                calendarSection.classList.add("col-lg-12");
+            if (calendarSection.classList.contains("col-md-4")) {
+                calendarSection.classList.remove("col-md-4");
+                calendarSection.classList.add("col-md-12");
             }
-            if (timerSection.classList.contains("col-lg-8")) {
-                timerSection.classList.remove("col-lg-8");
-                timerSection.classList.add("col-lg-12");
+            if (timerSection.classList.contains("col-md-8")) {
+                timerSection.classList.remove("col-md-8");
+                timerSection.classList.add("col-md-12");
             }
             clearInterval(calendarUpdatingInterval);
             calendarUpdatingInterval = null;
