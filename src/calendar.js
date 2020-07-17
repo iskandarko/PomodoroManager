@@ -29,28 +29,32 @@ function getTodayEvents() {
                     let now = new Date();
                     let isCurrentEvent = event.start.dateTime && (new Date(event.start.dateTime) <= now) && (new Date(event.end.dateTime) >= now);
                     let isPassedEvent = new Date(event.end.dateTime) <= now;
-                    let li = document.createElement("li");
+                    let a = document.createElement("a");
+                    a.setAttribute("target","_blank");
+                    a.setAttribute("class", "list-group-item list-group-item-action");
+                    a.setAttribute("href", event.htmlLink);
         
                     if (!whenStart) { // a whole day event
-                        li.innerHTML = event.summary;
-                        li.classList.add("text-info");
+                        a.innerHTML = event.summary;
+                        a.classList.add("text-info");
                     } else {
-                        li.innerHTML = '[' + whenStart.slice(11, 16) + '-' +  whenEnd.slice(11, 16) + "] " + event.summary;
+                        a.innerHTML = '[' + whenStart.slice(11, 16) + '-' +  whenEnd.slice(11, 16) + "] " + event.summary;
                         if (isCurrentEvent) {
-                            li.classList.add("font-weight-bold");
+                            a.classList.add("font-weight-bold");
                         } else if (isPassedEvent) {
-                            li.classList.add("text-muted");
-                            li.classList.add("font-weight-lighter");
+                            a.classList.add("text-muted");
+                            a.classList.add("font-weight-lighter");
                         } 
                     }
-    
-                    li.classList.add("list-group-item");
-                    eventsList.appendChild(li);
+                    eventsList.appendChild(a);
                 }
             } else {
-                let li = document.createElement("li");
-                li.innerHTML = "No upcoming events found";
-                li.classList.add("list-group-item");
+                let a = document.createElement("a");
+                a.setAttribute("target","_blank");
+                a.setAttribute("class", "list-group-item list-group-item-action");
+                a.setAttribute("href", "https://calendar.google.com/");
+                a.innerHTML = "No upcoming events found";
+                eventsList.appendChild(a);
             } 
         });
 }
