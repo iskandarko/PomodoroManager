@@ -14,7 +14,7 @@ let settingsNotifications = document.getElementById("settingsNotifications");
 let alertAboutNotifications = document.getElementById("alertAboutNotifications");
 let notificationsAllowBtn = document.getElementById("notificationsAllowBtn");
 
-let sounds = [new Audio("sounds/oldBell.mp3"), new Audio("sounds/alarmClock.mp3")];
+let sounds = [new Audio("public/sounds/oldBell.mp3"), new Audio("public/sounds/alarmClock.mp3")];
 let alarmSound = sounds[0];
 let pomodoroPeriod = 25;
 let shortBreakPeriod = 5;
@@ -255,7 +255,6 @@ function alertAboutNotificationsHide() {
 function notify() {
     if ("Notification" in window) {
         if (Notification.permission === "granted") {
-            console.log("notification launched");
             let title = "PomodoroManager";
             let options = {
                 body: "Buzzz!!!"
