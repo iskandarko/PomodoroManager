@@ -13,40 +13,77 @@
 // 10	Basil	#0b8043	
 // 11	Tomato	#d60000 */
 
+
 .googleCalColor_undefined {
-    background-color: #039be55b;
+    background-color: rgba(3, 152, 226, 0.357);
+}
+.googleCalColor_undefined_faded {
+    background-color: rgba(3, 152, 226, 0.137);
 }
 .googleCalColor_1 {
-    background-color: #7986cb5b;
+    background-color: rgba(121, 134, 203, 0.357); 
+}
+.googleCalColor_1_faded {
+    background-color: rgba(121, 134, 203, 0.137);  
 }
 .googleCalColor_2 {
-    background-color: #33b6795b;
+    background-color: rgba(51, 182, 121, 0.357);
+}
+.googleCalColor_2_faded {
+    background-color: rgba(51, 182, 121, 0.137);
 }
 .googleCalColor_3 {
-    background-color: #8e24aa5b;
+    background-color: rgba(142, 36, 170, 0.357);
+}
+.oogleCalColor_3_faded {
+    background-color: rgba(142, 36, 170, 0.137);
 }
 .googleCalColor_4 {
-    background-color: #e67c735b;
+    background-color: rgba(230, 124, 115, 0.357); 
+}
+.googleCalColor_4_faded {
+    background-color: rgba(230, 124, 115, 0.137);  
 }
 .googleCalColor_5 {
-    background-color: #f6c0265b;
+    background-color: rgba(246, 192, 38, 0.357);
+}
+.googleCalColor_5_faded {
+    background-color: rgba(246, 192, 38, 0.137);
 }
 .googleCalColor_6 {
-    background-color: #f5511d5b;
+    background-color: rgba(245, 81, 29, 0.357);
+}
+.googleCalColor_6_faded {
+    background-color: rgba(245, 81, 29, 0.137);
 }
 .googleCalColor_7 {
-    background-color: #039be55b;
+    background-color: rgba(3, 155, 229, 0.357);
+}
+.googleCalColor_7_faded {
+    background-color: rgba(3, 155, 229, 0.137); 
 }
 .googleCalColor_8 {
-    background-color: #6161615b;
+    background-color: rgba(97, 97, 97, 0.357);
+}
+.googleCalColor_8_faded {
+    background-color: rgba(97, 97, 97, 0.137);
 }
 .googleCalColor_9 {
-    background-color: #3f51b55b;
+    background-color: rgba(63, 81, 181, 0.357);
+}
+.googleCalColor_9_faded {
+    background-color: rgba(63, 81, 181, 0.137);
 }
 .googleCalColor_10 {
-    background-color: #0b80445b;
+    background-color: rgba(11, 128, 68, 0.357);
+}
+.googleCalColor_10_faded {
+    background-color: rgba(11, 128, 68, 0.137);
 }
 .googleCalColor_11 {
-    background-color: #d600005b;
+    background-color: rgba(214, 0, 0, 0.357);
+}
+.googleCalColor_11_faded {
+    background-color: rgba(214, 0, 0, 0.137);
 }
 

@@ -45,6 +45,8 @@ function getTodayEvents() {
                         } else if (isPassedEvent) {
                             a.classList.add("text-muted");
                             a.classList.add("font-weight-lighter");
+                            a.classList.remove("googleCalColor_" + event.colorId);
+                            a.classList.add("googleCalColor_" + event.colorId + "_faded");
                         } 
                     }
                     eventsList.appendChild(a);
