@@ -13,6 +13,9 @@
 // 10	Basil	#0b8043	
 // 11	Tomato	#d60000 */
 
+.calendarFont {
+    font-size: 0.9rem;
+}
 
 .googleCalColor_undefined {
     background-color: rgba(3, 152, 226, 0.357);
