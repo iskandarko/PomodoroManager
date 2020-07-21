@@ -22,6 +22,7 @@ function getTodayEvents() {
             }
     
             if (events.length > 0) {
+                let wholeDayEventsSummary = [];
                 for (i = 0; i < events.length; i++) {
                     let event = events[i];
                     let whenStart = event.start.dateTime;
@@ -35,9 +36,12 @@ function getTodayEvents() {
                     a.setAttribute("href", event.htmlLink);
                     a.classList.add("googleCalColor_" + event.colorId);
         
-                    if (!whenStart) { // a whole day event
-                        a.innerHTML = event.summary;
-                        a.classList.add("text-info");
+                    if (isWholeDayEvent(event)) {
+                        wholeDayEventsSummary.push(" " + event.summary);
+                        if (!isWholeDayEvent(events[i + 1])) {
+                            a.innerHTML = wholeDayEventsSummary;
+                            eventsList.appendChild(a);
+                        }
                     } else {
                         a.innerHTML = '[' + whenStart.slice(11, 16) + '-' +  whenEnd.slice(11, 16) + "] " + event.summary;
                         if (isCurrentEvent) {
@@ -48,8 +52,8 @@ function getTodayEvents() {
                             a.classList.remove("googleCalColor_" + event.colorId);
                             a.classList.add("googleCalColor_" + event.colorId + "_faded");
                         } 
+                        eventsList.appendChild(a);
                     }
-                    eventsList.appendChild(a);
                 }
             } else {
                 let a = document.createElement("a");
@@ -62,6 +66,9 @@ function getTodayEvents() {
         });
 }
 
+function isWholeDayEvent(event) {
+    return (event.start.dateTime) ?  false : true; 
+}
 
 
 // function formatDate(date) {
