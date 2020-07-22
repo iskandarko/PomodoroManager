@@ -1,4 +1,62 @@
 
+
+body {
+    background-color: #f8f9fa!important;
+}
+
+h1 {
+    font-size: 5.0rem;
+}
+
+.section {
+    height: 400px; 
+    max-height: 500px;
+    width: 1100px;
+}
+
+.card {
+    width: 100%;
+}
+
+.card-header {
+    background-color: #6c757d; 
+    color: white;
+}
+
+#pomodoroLogo {
+    color: crimson;
+}
+
+#timerButtons {
+    padding-top: 100px;
+}
+
+#authorize_button {
+    display: none; 
+    margin-top: 20px;
+}
+
+#signout_button {
+    display: none; 
+    float: right; 
+    border: none; 
+    padding: 0px 10px 0px 10px;
+}
+
+#listOfUpcomingEvents {
+    overflow-y: auto; height: 330px;
+}
+
+#footerText {
+    height: 200px; 
+    background-color: white;
+    padding-top: 70px;
+}
+
+.calendarFont {
+    font-size: 0.9rem;
+}
+
 /* // Calendar events colors
 // undefined	Who knows	#039be5	
 // 1	Lavender	#7986cb	
@@ -12,10 +70,6 @@
 // 9	Blueberry	#3f51b5	
 // 10	Basil	#0b8043	
 // 11	Tomato	#d60000 */
-
-.calendarFont {
-    font-size: 0.9rem;
-}
 
 .googleCalColor_undefined {
     background-color: rgba(3, 152, 226, 0.357);

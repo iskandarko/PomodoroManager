@@ -9,39 +9,23 @@
     <link rel="stylesheet" href="public/styles/stylesheet.css">
     <title>PomodoroManager</title>
 </head>
-<style>
-    body {
-        background-color: #f8f9fa!important;
-    }
-</style>
 <body>
 
 <!-- Navbar     -->
     <header>
         <nav class="navbar navbar-expand-md navbar-dark bg-dark">
-            <a class="navbar-brand" href="#"><span style="color: crimson;">Pomodoro</span>Manager</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand" href="#"><span id="pomodoroLogo">Pomodoro</span>Manager</a>
+            <!-- <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
-            </button>
+            </button> -->
           
-            <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item" data-toggle="modal" data-target="#settingsModal">
-                        <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Settings</a>
-                    </li>
-                </ul>
-                <!-- <ul class="navbar-nav my-2 my-lg-0">
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Logged in as <em>Iskandarko</em></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Sign Up</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">Log In</a>
-                    </li>
-                </ul> -->
-            </div>
+            <!-- <div class="collapse navbar-collapse" id="navbarSupportedContent"> -->
+                    <ul class="navbar-nav ml-auto"">
+                        <li class="nav-item" data-toggle="modal" data-target="#settingsModal">
+                            <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">Settings</a>
+                        </li>
+                    </ul>
+            <!-- </div>  -->
         </nav>
     </header>
 
@@ -121,8 +105,8 @@
 
                 <div class="row">                       
                     <div class="col-md-12 d-flex justify-content-center text-center align-self-center" id="timerSection">
-                        <div class="my-2 p-2 bg-white rounded shadow-sm" id="timerSection" style="height: 400px; width: 1100px;">
-                            <div class="btn-group btn-group-toggle" data-toggle="buttons" style="padding-top: 100px;">
+                        <div class="section my-2 p-2 bg-white rounded shadow-sm" id="timerSection">
+                            <div id="timerButtons" class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-secondary">
                                     <input type="radio" name="modes" id="pomodoroButton" checked> Pomodoro
                                 </label>
@@ -134,7 +118,7 @@
                                 </label>
                             </div>
 
-                            <h1 style="font-size: 5.0rem;"><span id="timer">25:00</span></h1>
+                            <h1><span id="timer">25:00</span></h1>
 
                             <div class="btn-group btn-group-toggle" data-toggle="buttons">
                                 <label class="btn btn-secondary">
@@ -153,87 +137,30 @@
 
                     <div class="col-md-12 d-flex justify-content-center align-self-center" id="calendarSection">
                         <div>
-                            <button id="authorize_button" style="display: none; margin-top: 20px;" class="btn btn-outline-secondary align-middle">+ Add Google Calendar</button>
+                            <button id="authorize_button" class="btn btn-outline-secondary align-middle">+ Add Google Calendar</button>
                         </div>
-                        <div class="my-2 p-2 bg-white rounded shadow-sm" id="google_calendar" style="height: 400px; max-height: 500px; width: 1100px;">
-                            <div class="card" style="width: 100%;">
-                                <div class="card-header" style="background-color: #6c757d; color: white;">
+                        <div class="section my-2 p-2 bg-white rounded shadow-sm" id="google_calendar">
+                            <div class="card">
+                                <div class="card-header">
                                     <strong>Today</strong> 
-                                    <button class="btn btn-secondary" id="signout_button" style="display: none; float: right; border: none; padding: 0px 10px 0px 10px">
+                                    <button class="btn btn-secondary" id="signout_button">
                                         <strong>X</strong>
                                     </button>    
                                 </div>
-                                <div id="listOfUpcomingEvents" class="list-group" style="overflow-y: auto; height: 330px;"></div>
+                                <div id="listOfUpcomingEvents" class="list-group"></div>
                             </div>
                         </div>
                     </div>
                 </div>
-
-
-                
-                
-
-          
-                <!-- <div class="row">
-
-                    <div class="col-md-6 d-flex justify-content-center" id="calendarSection">
-                        <div class="my-2 p-2 bg-white rounded shadow-sm" id="googleCalendar" style="height: 500px; width: 530px;">
-                            <img src="GoogleCalendar.png" class="img-fluid" alt="Responsive image">
-                        </div>
-                    </div>
-                    
-                    <div class="col-md-6 d-flex justify-content-center" id="toDoSection">
-                        <div class="my-2 p-2 bg-white rounded shadow-sm" id="toDoList" style="height: 500px; width: 530px;">
-                            <ul style="list-style: none; overflow-y:scroll; height: 430px;">
-                                <li style="color: grey; text-decoration: line-through;" > <input type="checkbox" checked > MDR: Потести BLOB</li>
-                                <li style="color: grey; text-decoration: line-through;" > <input type="checkbox" checked> Накидай вопросы для Наташи</li>
-                                <li style="color: grey;"> <input type="checkbox"> Завтрак</li>
-                                <li style="color: red;"> <input type="checkbox"> Coding</li>
-                                <li> <input type="checkbox"> MDR 
-                                    <ul>
-                                        <li><input type="checkbox"> Step1</li>
-                                        <li><input type="checkbox"> Step2</li>
-                                        <li><input type="checkbox"> Step3</li>
-                                    </ul>
-                                </li>
-                                <li> <input type="checkbox"> Something else</li>
-                                <li> <input type="checkbox"> Something else</li>
-                                <li> <input type="checkbox"> Something else</li>
-                                <li> <input type="checkbox"> Something else</li>
-                                <li> <input type="checkbox"> Something else</li>
-                                <li> <input type="checkbox"> Something else</li>
-                                <li> <input type="checkbox"> Something else</li>
-                                <li> <input type="checkbox"> Something else</li>
-                                <li> <input type="checkbox"> Something else</li>
-                                <li> <input type="checkbox"> Something else</li>
-                                <li> <input type="checkbox"> Something else</li>
-                                <li> <input type="checkbox"> Something else</li>
-                                <li> <input type="checkbox"> Something else</li>
-                                <li> <input type="checkbox"> Something else</li>
-                                <li> <input type="checkbox"> Something else</li>
-                                <li> <input type="checkbox"> Something else</li>
-                            </ul>
-                            <div class="input-group mb-3">
-                                <input type="text" class="form-control" placeholder="New Todo" aria-label="New To-do" aria-describedby="button-addon2">
-                                <div class="input-group-append">
-                                    <button class="btn btn-outline-secondary" type="button" id="button-addon2" style="font-weight: 800;">+</button>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div> -->
-
             </div>
         </div>
-
-
-
+        
     </main>
 
     <footer class="text-muted">
-        <div style="height: 200px; background-color: white">
-            <div class="container" style="padding-top: 70px;">
-                <p>Thank you for using &copy;PomodoroManager 0.2</p>
+        <div id="footerText">
+            <div class="container">
+                <p>Thank you for using PomodoroManager v0.2</p>
                 <p>Developed by Iskandar Mamadnazarov. Please contact me via <a href="mailto:iskandarko@gmail.com">Email</a>, visit my page on <a href="https://github.com/iskandarko">GitHub</a> or find me on <a href="https://www.linkedin.com/in/iskandar-mamadnazarov-471240182/">LinkedIn</a>.</p>
               </div>
         </div>
