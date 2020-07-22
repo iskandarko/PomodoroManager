@@ -35,6 +35,10 @@ function getTodayEvents() {
                     a.setAttribute("class", "calendarFont list-group-item list-group-item-action");
                     a.setAttribute("href", event.htmlLink);
                     a.classList.add("googleCalColor_" + event.colorId);
+
+                    if (event.summary === undefined) {
+                        event.summary = "(No title)";
+                    }
         
                     if (isWholeDayEvent(event)) {
                         wholeDayEventsSummary.push(" " + event.summary);
