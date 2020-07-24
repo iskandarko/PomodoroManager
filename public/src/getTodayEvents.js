@@ -1,5 +1,4 @@
-
-function getTodayEvents() {
+export default function getTodayEvents() {
 
         let dayStart = new Date().setHours(0,0,0,0);
         let dayEnd = new Date().setHours(23,59,59,999);
@@ -23,7 +22,7 @@ function getTodayEvents() {
     
             if (events.length > 0) {
                 let wholeDayEventsSummary = [];
-                for (i = 0; i < events.length; i++) {
+                for (let i = 0; i < events.length; i++) {
                     let event = events[i];
                     let whenStart = event.start.dateTime;
                     let whenEnd = event.end.dateTime;

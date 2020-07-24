@@ -1,4 +1,30 @@
+// UPLOAD GOOGLE API SCRIPT 
+    
+    let gApiScript = document.createElement('script');
+    gApiScript.async = true;
+    gApiScript.defer = true;
+    
+    gApiScript.onload = function() {
+        this.onload=function(){};
+        handleClientLoad();
+    };
+
+    gApiScript.onreadystatechange = function() {
+        if (this.readyState === 'complete') {
+            this.onload();
+        }
+    }
+
+    gApiScript.src = "https://apis.google.com/js/api.js";
+
+    document.body.appendChild(gApiScript);
+
+
 //GOOGLE CALENDAR API SETTINGS//////////////////////
+
+import getTodayEvents from "./getTodayEvents.js";
+
+
 
     // Client ID and API key from the Developer Console
     let CLIENT_ID = '203121643188-a74cesdr52dk8taqibu023as2cbi0rsj.apps.googleusercontent.com';
@@ -17,6 +43,7 @@
     let calendarSection = document.getElementById('calendarSection');
     let timerSection = document.getElementById('timerSection');
     let calendarUpdatingInterval;
+
 
 
     /**
