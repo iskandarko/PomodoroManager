@@ -89,7 +89,4 @@ function isWholeDayEvent(event) {
 //   return [year, month, day].join('-');
 // }
 
-// function updateListOfUpcomingEvents() {
-//   for (let i = 0; i < events.length)
-// }
 
