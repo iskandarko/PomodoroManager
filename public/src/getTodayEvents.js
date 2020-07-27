@@ -1,5 +1,6 @@
-export default function getTodayEvents() {
+const eventsList = document.getElementById("listOfUpcomingEvents");
 
+export default function getTodayEvents() {
         let dayStart = new Date().setHours(0,0,0,0);
         let dayEnd = new Date().setHours(23,59,59,999);
     
@@ -9,12 +10,11 @@ export default function getTodayEvents() {
             'timeMax' : (new Date(dayEnd)).toISOString(),
             'showDeleted': false,
             'singleEvents': true,
-            'maxResults': 50,
+            'maxResults': 100,
             'orderBy': 'startTime'
         })
         .then((gapiResponse) => {
             let events = gapiResponse.result.items;
-            let eventsList = document.getElementById("listOfUpcomingEvents");
     
             while (eventsList.firstChild) { // delete previously loaded events (if any)
                 eventsList.removeChild(eventsList.lastChild);
@@ -22,38 +22,37 @@ export default function getTodayEvents() {
     
             if (events.length > 0) {
                 let wholeDayEventsSummary = [];
+
                 for (let i = 0; i < events.length; i++) {
-                    let event = events[i];
-                    let whenStart = event.start.dateTime;
-                    let whenEnd = event.end.dateTime;
-                    let now = new Date();
-                    let isCurrentEvent = event.start.dateTime && (new Date(event.start.dateTime) <= now) && (new Date(event.end.dateTime) >= now);
-                    let isPassedEvent = new Date(event.end.dateTime) <= now;
+                    let whenStart = events[i].start.dateTime;
+                    let whenEnd = events[i].end.dateTime;
+
                     let a = document.createElement("a");
                     a.setAttribute("target","_blank");
                     a.setAttribute("class", "calendarFont list-group-item list-group-item-action");
-                    a.setAttribute("href", event.htmlLink);
-                    a.classList.add("googleCalColor_" + event.colorId);
+                    a.setAttribute("href", events[i].htmlLink);
+                    a.classList.add("googleCalColor_" + events[i].colorId);
 
-                    if (event.summary === undefined) {
-                        event.summary = "(No title)";
+                    if (events[i].summary === undefined) {
+                        events[i].summary = "(No title)";
                     }
         
-                    if (isWholeDayEvent(event)) {
-                        wholeDayEventsSummary.push(" " + event.summary);
-                        if (!isWholeDayEvent(events[i + 1])) {
+                    if (isWholeDay(events[i])) {
+                        wholeDayEventsSummary.push(" " + events[i].summary);
+                        if (!isWholeDay(events[i + 1])) { 
                             a.innerHTML = wholeDayEventsSummary;
                             eventsList.appendChild(a);
                         }
                     } else {
-                        a.innerHTML = '[' + whenStart.slice(11, 16) + '-' +  whenEnd.slice(11, 16) + "] " + event.summary;
-                        if (isCurrentEvent) {
+                        a.innerHTML = '[' + whenStart.slice(11, 16) + '-' +  whenEnd.slice(11, 16) + "] " + events[i].summary;
+                        if (isCurrent(events[i])) {
                             a.classList.add("font-weight-bold");
-                        } else if (isPassedEvent) {
+                        } 
+                        else if (isPassed(events[i])) {
                             a.classList.add("text-muted");
                             a.classList.add("font-weight-lighter");
-                            a.classList.remove("googleCalColor_" + event.colorId);
-                            a.classList.add("googleCalColor_" + event.colorId + "_faded");
+                            a.classList.remove("googleCalColor_" + events[i].colorId);
+                            a.classList.add("googleCalColor_" + events[i].colorId + "_faded");
                         } 
                         eventsList.appendChild(a);
                     }
@@ -69,7 +68,17 @@ export default function getTodayEvents() {
         });
 }
 
-function isWholeDayEvent(event) {
+function isCurrent(event) {
+    let now = new Date();
+    return event.start.dateTime && (new Date(event.start.dateTime) <= now) && (new Date(event.end.dateTime) >= now);
+}
+
+function isPassed(event) {
+    let now = new Date();
+    return new Date(event.end.dateTime) <= now;
+}
+
+function isWholeDay(event) {
     return (event.start.dateTime) ?  false : true; 
 }
 
