@@ -15,57 +15,85 @@ export default function getTodayEvents() {
         })
         .then((gapiResponse) => {
             let events = gapiResponse.result.items;
-    
-            while (eventsList.firstChild) { // delete previously loaded events (if any)
+
+            // Delete previously loaded events (if any)
+            while (eventsList.firstChild) { 
                 eventsList.removeChild(eventsList.lastChild);
             }
     
             if (events.length > 0) {
-                let wholeDayEventsSummary = [];
+                let wholeDayEventsOverallSummary = [];
 
                 for (let i = 0; i < events.length; i++) {
-                    let whenStart = events[i].start.dateTime;
-                    let whenEnd = events[i].end.dateTime;
+                    let event = events[i];
+                    let nextEvent = events[i + 1];
+                    let whenStart = event.start.dateTime;
+                    let whenEnd = event.end.dateTime;
+                    let item = createBlankItem(event);
 
-                    let a = document.createElement("a");
-                    a.setAttribute("target","_blank");
-                    a.setAttribute("class", "calendarFont list-group-item list-group-item-action");
-                    a.setAttribute("href", events[i].htmlLink);
-                    a.classList.add("googleCalColor_" + events[i].colorId);
-
-                    if (events[i].summary === undefined) {
-                        events[i].summary = "(No title)";
+                    if (event.summary === undefined) {
+                        event.summary = "(No title)";
                     }
-        
-                    if (isWholeDay(events[i])) {
-                        wholeDayEventsSummary.push(" " + events[i].summary);
-                        if (!isWholeDay(events[i + 1])) { 
-                            a.innerHTML = wholeDayEventsSummary;
-                            eventsList.appendChild(a);
+                    if (isWholeDay(event)) {
+                        wholeDayEventsOverallSummary.push(" " + event.summary);
+
+                        if (!isWholeDay(nextEvent)) { 
+                            item.innerHTML = wholeDayEventsOverallSummary;
+                            eventsList.appendChild(item);
                         }
                     } else {
-                        a.innerHTML = '[' + whenStart.slice(11, 16) + '-' +  whenEnd.slice(11, 16) + "] " + events[i].summary;
-                        if (isCurrent(events[i])) {
-                            a.classList.add("font-weight-bold");
+                        let formattedSummary = formatSummary(whenStart, whenEnd, event.summary);
+                        item.innerHTML = formattedSummary;
+
+                        if (isCurrent(event)) {
+                            item = highlight(item);
                         } 
-                        else if (isPassed(events[i])) {
-                            a.classList.add("text-muted");
-                            a.classList.add("font-weight-lighter");
-                            a.classList.remove("googleCalColor_" + events[i].colorId);
-                            a.classList.add("googleCalColor_" + events[i].colorId + "_faded");
+                        else if (isPassed(event)) {
+                            item = fade(item);
                         } 
-                        eventsList.appendChild(a);
+                        eventsList.appendChild(item);
                     }
                 }
             } else {
-                let a = document.createElement("a");
-                a.setAttribute("target","_blank");
-                a.setAttribute("class", "list-group-item list-group-item-action");
-                a.setAttribute("href", "https://calendar.google.com/");
-                a.innerHTML = "No upcoming events found";
-                eventsList.appendChild(a);
+                let item = createNoEventsItem();
+                eventsList.appendChild(item);
             } 
         });
+}
+
+function createBlankItem(event) {
+    let item = document.createElement("a");
+    item.setAttribute("target","_blank");
+    item.setAttribute("class", "calendarFont list-group-item list-group-item-action");
+    if (event) {
+        item.setAttribute("href", event.htmlLink);
+        item.classList.add("googleCalColor_" + event.colorId);
+    } else {
+        item.setAttribute("href", "https://calendar.google.com/");
+        item.classList.add("googleCalColor_undefined");
+    }
+    return item;
+}
+
+function isWholeDay(event) {
+    return (event.start.dateTime) ?  false : true; 
+}
+
+function formatSummary(whenStart, whenEnd, eventSummary) {
+    return '[' + whenStart.slice(11, 16) + '-' +  whenEnd.slice(11, 16) + "] " + eventSummary;
+}
+
+function highlight(item) {
+    item.classList.add("font-weight-bold");
+    return item;
+}
+
+function fade(item) {
+    item.classList.add("text-muted");
+    item.classList.add("font-weight-lighter");
+    item.classList.remove("googleCalColor_" + event.colorId);
+    item.classList.add("googleCalColor_" + event.colorId + "_faded");
+    return item;
 }
 
 function isCurrent(event) {
@@ -78,23 +106,17 @@ function isPassed(event) {
     return new Date(event.end.dateTime) <= now;
 }
 
-function isWholeDay(event) {
-    return (event.start.dateTime) ?  false : true; 
+function createNoEventsItem() {
+    let item = createBlankItem();
+    item.innerHTML = "No upcoming events found for today";
+    return item;
 }
 
 
-// function formatDate(date) {
-//   let d = new Date(date),
-//       month = '' + (d.getMonth() + 1),
-//       day = '' + d.getDate(),
-//       year = d.getFullYear();
 
-//   if (month.length < 2) 
-//       month = '0' + month;
-//   if (day.length < 2) 
-//       day = '0' + day;
 
-//   return [year, month, day].join('-');
-// }
+
+
+
 
 

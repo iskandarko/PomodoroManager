@@ -1,17 +1,17 @@
 import getTodayEvents from "./getTodayEvents.js";
 
 //API client id
-let CLIENT_ID = '203121643188-a74cesdr52dk8taqibu023as2cbi0rsj.apps.googleusercontent.com';
+const CLIENT_ID = '203121643188-a74cesdr52dk8taqibu023as2cbi0rsj.apps.googleusercontent.com';
 // Array of API discovery doc URLs for APIs used by the app
-let DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
+const DISCOVERY_DOCS = ["https://www.googleapis.com/discovery/v1/apis/calendar/v3/rest"];
 // Authorization scopes required by the API; multiple scopes can be included, separated by spaces.
-let SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
+const SCOPES = "https://www.googleapis.com/auth/calendar.readonly";
 
-let authorizeButton = document.getElementById('authorize_button');
-let signoutButton = document.getElementById('signout_button');
-let googleCalendar = document.getElementById('google_calendar');
-let calendarSection = document.getElementById('calendarSection');
-let timerSection = document.getElementById('timerSection');
+const authorizeButton = document.getElementById('authorize_button');
+const signoutButton = document.getElementById('signout_button');
+const googleCalendar = document.getElementById('google_calendar');
+const calendarSection = document.getElementById('calendarSection');
+const timerSection = document.getElementById('timerSection');
 let calendarUpdatingInterval;
 
 uploadGoogleApiScript();
@@ -76,7 +76,6 @@ function updateSigninStatus(isSignedIn) {
     }
 }
 
-
 function handleAuthClick() {
     gapi.auth2.getAuthInstance().signIn();
 }
@@ -102,7 +101,7 @@ function updateUi(status) {
         }
 
     } else {
-
+        
         authorizeButton.style.display = 'block';
         signoutButton.style.display = 'none';
         googleCalendar.style.display = 'none';

@@ -1,21 +1,20 @@
 import Timer from "./timer.js";
 
-let timerDisplay = document.getElementById("timer");
-let startBtn = document.getElementById("startButton");
-let stopBtn = document.getElementById("stopButton");
-let resetBtn = document.getElementById("resetButton");
-let pomodoroBtn = document.getElementById("pomodoroButton");
-let shortBreakBtn = document.getElementById("shortBreakButton");
-let longBreakBtn = document.getElementById("longBreakButton");
-let saveSettingsBtn = document.getElementById("saveSettingsBtn");
-let settingsPomodoro = document.getElementById("settingsPomodoro");
-let settingsShortBreak = document.getElementById("settingsShortBreak");
-let settingsLongBreak = document.getElementById("settingsLongBreak");
-let settingsNotifications = document.getElementById("settingsNotifications");
-let alertAboutNotifications = document.getElementById("alertAboutNotifications");
-let notificationsAllowBtn = document.getElementById("notificationsAllowBtn");
-
-let sounds = [new Audio("public/sounds/oldBell.mp3"), new Audio("public/sounds/alarmClock.mp3")];
+const timerDisplay = document.getElementById("timer");
+const startBtn = document.getElementById("startButton");
+const stopBtn = document.getElementById("stopButton");
+const resetBtn = document.getElementById("resetButton");
+const pomodoroBtn = document.getElementById("pomodoroButton");
+const shortBreakBtn = document.getElementById("shortBreakButton");
+const longBreakBtn = document.getElementById("longBreakButton");
+const saveSettingsBtn = document.getElementById("saveSettingsBtn");
+const settingsPomodoro = document.getElementById("settingsPomodoro");
+const settingsShortBreak = document.getElementById("settingsShortBreak");
+const settingsLongBreak = document.getElementById("settingsLongBreak");
+const settingsNotifications = document.getElementById("settingsNotifications");
+const alertAboutNotifications = document.getElementById("alertAboutNotifications");
+const notificationsAllowBtn = document.getElementById("notificationsAllowBtn");
+const sounds = [new Audio("public/sounds/oldBell.mp3"), new Audio("public/sounds/alarmClock.mp3")];
 let alarmSound = sounds[0];
 let pomodoroPeriod = 25;
 let shortBreakPeriod = 5;

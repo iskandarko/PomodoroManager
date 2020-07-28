@@ -1,5 +1,3 @@
-
-
 body {
     background-color: #f8f9fa!important;
 }
@@ -57,7 +55,7 @@ h1 {
     font-size: 0.9rem;
 }
 
-/* // Calendar events colors
+/* // Google Calendar events colors
 // undefined	Who knows	#039be5	
 // 1	Lavender	#7986cb	
 // 2	Sage	#33b679	
